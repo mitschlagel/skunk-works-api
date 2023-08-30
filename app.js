@@ -1,18 +1,27 @@
-const express = require('express')
+class XpAccountsAccount {
+    constructor(name ="Checking", balance ="$123.45", lastFour = "0123", paymentInformation = "", actions = []) {
+        this.name = name;
+        this.balance = balance;
+        this.lastFour = lastFour;
+        this.paymentInformation = paymentInformation;
+        this.actions = actions;
+    }
+}
 
+const express = require('express');
 const app = express();
-app.use(express.json())
+const port = 3000;
 
-const PORT = process.env.PORT || 3000;
+const dataArray = [
+  new XpAccountsAccount(),
+  new XpAccountsAccount(),
+  new XpAccountsAccount()
+];
 
-app.listen(PORT, () => {
-    console.log("Server Listening on PORT: ", PORT);
+app.get('/accounts', (req, res) => {
+  res.json(dataArray);
 });
 
-app.get("/status", (request, response) => {
-    const status = {
-        "Status": "Running"
-    };
-
-    response.send(status);
+app.listen(port, () => {
+  console.log(`Server is listening at http://localhost:${port}`);
 });
